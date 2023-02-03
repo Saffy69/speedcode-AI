@@ -24,7 +24,8 @@ function App() {
       }),
     });
     const data = await response.json();
-    setChatLog([...newChatLog, { user: "gpt", message: data.message.trim() }]);
+    const gptRes = data.message.trim();
+    setChatLog([...newChatLog, { user: "gpt", message: `${gptRes}` }]);
   };
   return (
     <div id="app">
