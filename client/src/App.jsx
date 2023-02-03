@@ -14,7 +14,7 @@ function App() {
     setChatLog(newChatLog);
     setInput("");
     const messages = newChatLog.map((result) => result.message).join("\n");
-    const response = await fetch("http://localhost:5000/", {
+    const response = await fetch("https://speed-code-ai.onrender.com", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
