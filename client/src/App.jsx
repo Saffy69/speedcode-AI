@@ -1,14 +1,21 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./App.css";
 import sendImg from "./assets/send.svg";
 import botImg from "./assets/bot.svg";
 import userImg from "./assets/user.svg";
 
 function App() {
-  const chatWindowRef = useRef(null);
+  const messageEl = useRef(null);
   const [chatLog, setChatLog] = useState([]);
   const [input, setInput] = useState("");
-
+  useEffect(() => {
+    if (messageEl) {
+      messageEl.current.addEventListener("DOMNodeInserted", (event) => {
+        const { currentTarget: target } = event;
+        target.scroll({ top: target.scrollHeight, behavior: "smooth" });
+      });
+    }
+  }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newChatLog = [...chatLog, { user: "me", message: `${input}` }];
@@ -31,7 +38,7 @@ function App() {
   };
   return (
     <div id="app">
-      <div id="chat_container">
+      <div id="chat_container" ref={messageEl}>
         {chatLog.map((result, index) => (
           <ChatMessage key={index} result={result} />
         ))}
