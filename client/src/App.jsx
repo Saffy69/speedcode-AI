@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "./App.css";
 import sendImg from "./assets/send.svg";
 import botImg from "./assets/bot.svg";
 import userImg from "./assets/user.svg";
 
 function App() {
+  const chatWindowRef = useRef(null);
   const [chatLog, setChatLog] = useState([]);
   const [input, setInput] = useState("");
 
@@ -26,6 +27,7 @@ function App() {
     const data = await response.json();
     const gptRes = data.message.trim();
     setChatLog([...newChatLog, { user: "gpt", message: `${gptRes}` }]);
+    chatWindowRef.current.scrollIntoView();
   };
   return (
     <div id="app">
