@@ -34,7 +34,6 @@ function App() {
     const data = await response.json();
     const gptRes = data.message.trim();
     setChatLog([...newChatLog, { user: "gpt", message: `${gptRes}` }]);
-    chatWindowRef.current.scrollIntoView();
   };
   return (
     <div id="app">
