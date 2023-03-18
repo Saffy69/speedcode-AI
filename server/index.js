@@ -36,6 +36,22 @@ app.post("/", async (req, res) => {
   }
 });
 
+app.post("/test", async (req, res) => {
+  const { message } = req.body;
+  try {
+    const response = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: message }],
+    });
+    res.json({
+      message: response.data.choices[0].message.content,
+    });
+    console.log(response);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 app.listen(5000, () =>
   console.log("AI server started on http://localhost:5000")
 );
